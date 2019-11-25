@@ -1,8 +1,8 @@
 const db = require('../data/db-config.js');
 
-const findTasksById = id => {
+const findResourcesById = id => {
 	return db('projects as p')
-		.select('p.id', 't.project_id', 't.description', 't.notes', 't.completed').innerJoin('tasks as t', function(){
+		.select('p.id', 'r.project_id', 't.description', 't.notes', 't.completed').innerJoin('resources as r', function(){
 			this.on('p.id', '=', 't.project_id').andOn('p.id', '=', Number(id))
 		}).orderBy('t.project_id')
 }
@@ -20,5 +20,5 @@ const remove = id => {
 }
 
 module.exports = {
-	add, update, remove, findTasksById
+	add, update, remove, findResourcesById
 }

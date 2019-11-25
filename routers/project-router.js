@@ -13,4 +13,56 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const item = await Projects.findById(req.params.id);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });    
+        } else {
+            res.status(404).json({ message: "User does not exist"});    
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.post('/', async (req, res) => {
+    try {
+        const item = await Projects.add(req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });    
+        } else {
+            res.status(404).json({ message: "Project info required"});    
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const item = await Projects.add(req.params.id, req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });    
+        } else {
+            res.status(404).json({ message: "Updated info required"});    
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const item = await Projects.remove(req.params.id);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });    
+        } else {
+            res.status(404).json({ message: "Updated info required"});    
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
 module.exports = router
