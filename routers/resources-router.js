@@ -1,12 +1,12 @@
 const express = require('express');
 
-const Resources = require('./task-model.js');
+const Resources = require('./resources-model.js');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/:projectId', async (req, res) => {
     try {
-        const item = await Resources.findResourcesById(req.params.id);
+        const item = await Resources.findResourcesById(req.params.projectId);
         if(!!item){
             res.status(200).json({ message: "Successfully ...", item });  
         } else {
@@ -45,7 +45,7 @@ router.put('/:r_id', async (req, res) => {
 
 router.delete('/:r_id', async (req, res) => {
     try {
-        const item = await Resources.update(req.params.r_id);
+        const item = await Resources.delete(req.params.r_id);
         if(!!item){
             res.status(200).json({ message: "Successfully ...", item });  
         } else {

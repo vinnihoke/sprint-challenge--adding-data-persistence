@@ -1,10 +1,20 @@
 const db = require('../data/db-config.js');
 
+// select * from projects_resources as pr
+// join projects as p
+// on p.id = pr.project_id and p.id = 1
+// join resources as r
+// on r.id = pr.resource_id
+
 const findResourcesById = id => {
-	return db('projects as p')
-		.select('p.id', 'r.project_id', 't.description', 't.notes', 't.completed').innerJoin('resources as r', function(){
-			this.on('p.id', '=', 't.project_id').andOn('p.id', '=', Number(id))
-		}).orderBy('t.project_id')
+	return db('projects_resources as pr')
+		.innerJoin('projects as p', function(){
+			this.on('p.id', '=', 'pr.project_id').andOn('p.id', '=', Number(id))
+		})
+		.innerJoin('resources as r', function(){
+			this.on('r.id', '=', 'pr.resource_id')
+		})
+		.orderBy('pr.resource_id')
 }
 
 const add = resource => {

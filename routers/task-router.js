@@ -4,11 +4,12 @@ const Tasks = require('./task-model.js');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+// Operational
+router.get('/:projectId', async (req, res) => {
     try {
-        const item = await Tasks.findTasksById(req.params.id);
+        const item = await Tasks.findTasksById(req.params.projectId);
         if(!!item){
-            res.status(200).json({ message: "Successfully ...", item });  
+            res.status(200).json({ message: "Successfully ...", item });
         } else {
             res.status(404).json({ message: "No tasks for user"});
         }
@@ -17,11 +18,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/:projectId/', async (req, res) => {
     try {
         const item = await Tasks.add(req.body);
         if(!!item){
-            res.status(200).json({ message: "Successfully ...", item });  
+            res.status(200).json({ message: "Successfully ...", item });
         } else {
             res.status(404).json({ message: "Task information required"});
         }
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:t_id', async (req, res) => {
+router.put('/:projectId/:t_id', async (req, res) => {
     try {
         const item = await Tasks.update(req.params.t_id, req.body);
         if(!!item){
@@ -43,9 +44,9 @@ router.put('/:t_id', async (req, res) => {
     }
 });
 
-router.delete('/:t_id', async (req, res) => {
+router.delete('/:projectId/:t_id', async (req, res) => {
     try {
-        const item = await Tasks.update(req.params.t_id);
+        const item = await Tasks.remove(req.params.t_id);
         if(!!item){
             res.status(200).json({ message: "Successfully ...", item });  
         } else {

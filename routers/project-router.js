@@ -42,10 +42,11 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Non-op
+// Operational
 router.put('/:id', async (req, res) => {
     try {
-        const item = await Projects.add(req.params.id, req.body);
+        console.log(req.body)
+        const item = await Projects.update(req.params.id, req.body);
         if(!!item){
             res.status(200).json({ message: "Successfully ...", item });    
         } else {

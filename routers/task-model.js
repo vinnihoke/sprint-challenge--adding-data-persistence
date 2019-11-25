@@ -7,7 +7,7 @@ const findTasksById = id => {
 		}).orderBy('t.project_id')
 }
 
-const add = task => {
+const add = (task) => {
 	return db('tasks').insert(task)
 }
 
