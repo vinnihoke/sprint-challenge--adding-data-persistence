@@ -18,6 +18,7 @@ router.get('/:projectId', async (req, res) => {
     }
 });
 
+// Operational
 router.post('/:projectId/', async (req, res) => {
     try {
         const item = await Tasks.add(req.body);
@@ -31,6 +32,7 @@ router.post('/:projectId/', async (req, res) => {
     }
 });
 
+// Operational
 router.put('/:projectId/:t_id', async (req, res) => {
     try {
         const item = await Tasks.update(req.params.t_id, req.body);
@@ -44,6 +46,7 @@ router.put('/:projectId/:t_id', async (req, res) => {
     }
 });
 
+// Operational
 router.delete('/:projectId/:t_id', async (req, res) => {
     try {
         const item = await Tasks.remove(req.params.t_id);

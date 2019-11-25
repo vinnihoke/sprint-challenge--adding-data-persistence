@@ -6,6 +6,7 @@ const db = require('../data/db-config.js');
 // join resources as r
 // on r.id = pr.resource_id
 
+// Testing required
 const findResourcesById = id => {
 	return db('projects_resources as pr')
 		.innerJoin('projects as p', function(){
@@ -17,14 +18,17 @@ const findResourcesById = id => {
 		.orderBy('pr.resource_id')
 }
 
+// Testing required
 const add = resource => {
 	return db('resources').insert(resource)
 }
 
+// Testing required
 const update = (id, changes) => {
 	return db('resources').where({ id }).update(changes);
 }
 
+// Testing required
 const remove = id => {
 	return db('resources').where({ id }).del()
 }
