@@ -1,24 +1,61 @@
-const db = require('../data/db-config.js');
+const express = require('express');
 
-const findResourcesById = id => {
-	return db('projects as p')
-		.select('p.id', 'r.project_id', 't.description', 't.notes', 't.completed').innerJoin('resources as r', function(){
-			this.on('p.id', '=', 't.project_id').andOn('p.id', '=', Number(id))
-		}).orderBy('t.project_id')
-}
+const Resources = require('./task-model.js');
 
-const add = task => {
-	return db('tasks').insert(task)
-}
+const router = express.Router();
 
-const update = (id, changes) => {
-	return db('tasks').where({ id }).update(changes);
-}
+router.get('/', async (req, res) => {
+    try {
+        const item = await Resources.findResourcesById(req.params.id);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "No Resources for user"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
 
-const remove = id => {
-	return db('tasks').where({ id }).del()
-}
+router.post('/', async (req, res) => {
+    try {
+        const item = await Resources.add(req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Resource information required"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
 
-module.exports = {
-	add, update, remove, findResourcesById
-}
+router.put('/:r_id', async (req, res) => {
+    try {
+        const item = await Resources.update(req.params.r_id, req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Updated resource information required"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.deleted('/:r_id', async (req, res) => {
+    try {
+        const item = await Resources.update(req.params.r_id);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Resource does not exist"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+
+
+module.exports = router

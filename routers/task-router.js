@@ -3,17 +3,59 @@ const express = require('express');
 const Tasks = require('./task-model.js');
 
 const router = express.Router();
+
 router.get('/', async (req, res) => {
     try {
-        const item = await Tasks.findById(req.params.id);
+        const item = await Tasks.findTasksById(req.params.id);
         if(!!item){
-            res.status(200).json({ message: "Successfully ...", item });    
+            res.status(200).json({ message: "Successfully ...", item });  
         } else {
-            res.status(404).json({ message: "User", item });    
+            res.status(404).json({ message: "No tasks for user"});
         }
     } catch (e) {
         res.status(500).json({ message: "This is awkward...", error: e.message });
     }
 });
+
+router.post('/', async (req, res) => {
+    try {
+        const item = await Tasks.add(req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Task information required"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.put('/:t_id', async (req, res) => {
+    try {
+        const item = await Tasks.update(req.params.t_id, req.body);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Updated task information required"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+router.deleted('/:t_id', async (req, res) => {
+    try {
+        const item = await Tasks.update(req.params.t_id);
+        if(!!item){
+            res.status(200).json({ message: "Successfully ...", item });  
+        } else {
+            res.status(404).json({ message: "Task does not exist"});
+        }
+    } catch (e) {
+        res.status(500).json({ message: "This is awkward...", error: e.message });
+    }
+});
+
+
 
 module.exports = router
