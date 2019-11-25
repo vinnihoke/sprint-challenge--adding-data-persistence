@@ -23,5 +23,5 @@ const remove = id => {
 }
 
 module.exports = {
-	find, findById, findTasksById, findResourcesById, add, update, remove
+	find, findById, add, update, remove
 }

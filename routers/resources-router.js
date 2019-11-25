@@ -43,7 +43,7 @@ router.put('/:r_id', async (req, res) => {
     }
 });
 
-router.deleted('/:r_id', async (req, res) => {
+router.delete('/:r_id', async (req, res) => {
     try {
         const item = await Resources.update(req.params.r_id);
         if(!!item){

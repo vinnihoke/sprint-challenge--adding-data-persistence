@@ -43,7 +43,7 @@ router.put('/:t_id', async (req, res) => {
     }
 });
 
-router.deleted('/:t_id', async (req, res) => {
+router.delete('/:t_id', async (req, res) => {
     try {
         const item = await Tasks.update(req.params.t_id);
         if(!!item){

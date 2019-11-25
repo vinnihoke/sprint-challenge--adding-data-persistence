@@ -4,6 +4,7 @@ const Projects = require('./project-model.js');
 
 const router = express.Router();
 
+// Operational
 router.get('/', async (req, res) => {
     try {
         const item = await Projects.find();
@@ -13,6 +14,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Operational
 router.get('/:id', async (req, res) => {
     try {
         const item = await Projects.findById(req.params.id);
@@ -26,6 +28,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Operational
 router.post('/', async (req, res) => {
     try {
         const item = await Projects.add(req.body);
@@ -39,6 +42,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Non-op
 router.put('/:id', async (req, res) => {
     try {
         const item = await Projects.add(req.params.id, req.body);
@@ -52,6 +56,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// Operational
 router.delete('/:id', async (req, res) => {
     try {
         const item = await Projects.remove(req.params.id);

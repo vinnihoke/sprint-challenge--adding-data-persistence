@@ -2,6 +2,10 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const ProjectRouter = require('./routers/project-router.js');
+const ResourcesRouter = require('./routers/resources-router.js');
+const TaskRouter = require('./routers/task-router.js');
+
 const server = express();
 
 server.use(helmet())
