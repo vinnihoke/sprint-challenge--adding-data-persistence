@@ -15,7 +15,12 @@ const findResourcesById = id => {
 		.innerJoin('resources as r', function(){
 			this.on('r.id', '=', 'pr.resource_id')
 		})
-		.orderBy('pr.resource_id')
+		.orderBy('pr.resource_id').then( resources => {
+			for(let resource of resources){
+				resource.completed === 0 ? resource.completed = false : resource.completed = true
+			} 
+			return resources
+		} )
 }
 
 // Testing required
